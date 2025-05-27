@@ -44,6 +44,46 @@ project/
 └── requirements.txt     # Python dependencies
 ```
 
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+1. Python 3.11 or higher
+2. PostgreSQL 14 or higher
+3. MongoDB 6.0 or higher
+4. Redis (optional)
+
+### Installing MongoDB
+
+#### macOS (using Homebrew):
+```bash
+brew tap mongodb/brew
+brew install mongodb-community
+brew services start mongodb-community
+```
+
+#### Ubuntu:
+```bash
+# Import MongoDB public key
+curl -fsSL https://pgp.mongodb.com/server-6.0.asc | sudo gpg -o /usr/share/keyrings/mongodb-server-6.0.gpg --dearmor
+
+# Add MongoDB repository
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu $(lsb_release -cs)/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+
+# Install MongoDB
+sudo apt update
+sudo apt install -y mongodb-org
+sudo systemctl start mongod
+sudo systemctl enable mongod
+```
+
+#### Windows:
+1. Download MongoDB Community Server from [MongoDB Download Center](https://www.mongodb.com/try/download/community)
+2. Run the installer and follow the installation wizard
+3. Add MongoDB bin directory to system PATH
+4. Create directory: `C:\data\db`
+5. Start MongoDB service
+
 ## 🚀 Getting Started
 
 1. Clone the repository:
@@ -68,10 +108,11 @@ project/
    cp .env.example .env
    ```
 
-5. Start the services using Docker Compose:
+5. Start the services using Docker Compose (optional):
    ```bash
    docker-compose up -d
    ```
+   Or ensure your local PostgreSQL and MongoDB services are running.
 
 6. Run database migrations:
    ```bash
@@ -94,8 +135,8 @@ Key configurations:
 - `APP_NAME`: Application name
 - `ENV`: Environment (development/production)
 - `DATABASE_URL`: PostgreSQL connection string
-- `MONGODB_URL`: MongoDB connection string
-- `REDIS_HOST`: Redis host
+- `MONGODB_URL`: MongoDB connection string (default: mongodb://localhost:27017/)
+- `REDIS_HOST`: Redis host (optional)
 - `SECRET_KEY`: Secret key for JWT tokens
 
 ## 📚 API Documentation
@@ -122,6 +163,25 @@ docker build -t python-starter-kit .
 # Run with Docker Compose (recommended)
 docker-compose up -d
 ```
+
+## 🔍 Troubleshooting
+
+Common issues and solutions:
+
+1. **MongoDB Connection Error**:
+   - Ensure MongoDB is running: `brew services list` (macOS) or `systemctl status mongod` (Linux)
+   - Check MongoDB URL in `.env` file
+   - Verify MongoDB port is not blocked by firewall
+
+2. **PostgreSQL Connection Error**:
+   - Ensure PostgreSQL is running
+   - Verify database exists: `createdb starter_kit`
+   - Check database URL in `.env` file
+
+3. **Alembic Migration Error**:
+   - Ensure database exists and is accessible
+   - Check if previous migrations were applied: `alembic history`
+   - Run migrations with verbose output: `alembic upgrade head --sql`
 
 ## 📦 Dependencies
 

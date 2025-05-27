@@ -2,6 +2,7 @@ fastapi==0.104.1
 uvicorn==0.24.0
 python-dotenv==1.0.0
 pydantic==2.4.2
+pydantic-settings==2.0.3
 sqlalchemy==2.0.23
 alembic==1.12.1
 pytest==7.4.3
@@ -13,4 +14,6 @@ bcrypt==4.0.1
 python-multipart==0.0.6
 motor==3.3.1  # MongoDB async driver
 redis==5.0.1
-psycopg2-binary==2.9.9  # PostgreSQL driver 
+psycopg2-binary==2.9.9  # PostgreSQL driver
+email-validator==2.1.0  # Required for Pydantic email validation 
+pymongo==4.5.0

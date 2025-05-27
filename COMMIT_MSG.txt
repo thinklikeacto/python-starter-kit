@@ -1,0 +1,26 @@
+feat(docs): enhance documentation with MongoDB setup and troubleshooting
+
+This commit improves the project documentation by adding detailed MongoDB setup
+instructions and troubleshooting guides. The changes make it easier for new
+developers to get started with the project and resolve common issues.
+
+Key Changes:
+- Add Prerequisites section with version requirements
+- Include MongoDB installation instructions for macOS, Ubuntu, and Windows
+- Add troubleshooting section for common database issues
+- Clarify optional dependencies (Redis)
+- Update configuration section with more detailed descriptions
+- Mark Docker Compose as optional for local development
+
+Technical Details:
+- MongoDB version requirement: 6.0 or higher
+- PostgreSQL version requirement: 14 or higher
+- Python version requirement: 3.11 or higher
+- Default MongoDB URL: mongodb://localhost:27017/
+
+Related:
+- Fixes MongoDB connection issues
+- Improves developer experience
+- Enhances project maintainability
+
+Breaking Changes: None 
