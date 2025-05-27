@@ -42,6 +42,9 @@ This starter kit follows clean architecture principles with clear separation of 
 - Shell/Python scripts for automation
 - Used for setup, migration, formatting, linting, and cleanup tasks
 
+## 📁 Project Structure
+
+```text
 project/
 │
 ├── app/                      # Main application logic
@@ -69,22 +72,7 @@ project/
 │       └── token_utils.py    # Example utility
 │
 ├── db/                       # Database migrations and seeds
-│   ├── migrations/           # Alembic or Flyway migration files
-│   └── seed.py               # Optional seed data
-│
-├── tests/                    # Unit and integration tests
-│   ├── unit/                 # Isolated unit tests
-│   └── integration/          # Tests with DB/app context
-│
-├── scripts/                  # Dev & CI scripts (e.g., setup.sh, db_init.sh)
-│
-├── .env                      # Environment variables
-├── Dockerfile                # Container build file
-├── docker-compose.yml        # Service orchestration
-├── requirements.txt          # Python dependencies
-├── pyproject.toml            # Optional: modern packaging
-└── main.py                   # Application entry point (e.g., FastAPI app)
-
+│   ├── migr
 
 
 
