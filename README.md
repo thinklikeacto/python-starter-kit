@@ -17,6 +17,7 @@ A production-ready Python microservice boilerplate with clean architecture, mult
 - **API Versioning**: Built-in support for API versioning
 - **CORS**: Configured Cross-Origin Resource Sharing
 - **Environment Variables**: Environment-based configuration using python-dotenv
+- **Git Workflow**: GitFlow branching model for better collaboration
 
 ## 🏗️ Project Structure
 
@@ -197,11 +198,89 @@ Key dependencies used:
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+### Git Workflow
+
+We follow the GitFlow branching model for development:
+
+#### Main Branches
+- `main`: Production-ready code
+- `develop`: Main development branch
+
+#### Supporting Branches
+- `feature/*`: New features (branch from `develop`)
+- `release/*`: Release preparation (branch from `develop`)
+- `hotfix/*`: Emergency fixes for production (branch from `main`)
+- `bugfix/*`: Bug fixes (branch from `develop`)
+
+#### Branch Naming Convention
+- Features: `feature/my-feature-name`
+- Bugfixes: `bugfix/issue-description`
+- Releases: `release/1.0.0`
+- Hotfixes: `hotfix/critical-issue`
+
+#### Development Workflow
+1. Create a new feature branch:
+   ```bash
+   git checkout develop
+   git checkout -b feature/my-feature
+   ```
+
+2. Make your changes and commit using conventional commits:
+   ```bash
+   git commit -m "feat: add new feature"
+   ```
+
+3. Push your feature branch:
+   ```bash
+   git push origin feature/my-feature
+   ```
+
+4. Create a Pull Request to merge into `develop`
+
+5. After review and approval:
+   - Merge into `develop`
+   - Delete feature branch
+
+#### Release Process
+1. Create a release branch:
+   ```bash
+   git checkout develop
+   git checkout -b release/1.0.0
+   ```
+
+2. Version bump and final testing
+
+3. Merge into `main` and `develop`:
+   ```bash
+   git checkout main
+   git merge release/1.0.0
+   git tag -a v1.0.0 -m "Release 1.0.0"
+   
+   git checkout develop
+   git merge release/1.0.0
+   ```
+
+4. Delete release branch:
+   ```bash
+   git branch -d release/1.0.0
+   ```
+
+#### Commit Message Format
+We use conventional commits format:
+- `feat`: New features
+- `fix`: Bug fixes
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, etc.)
+- `refactor`: Code refactoring
+- `test`: Adding or updating tests
+- `chore`: Maintenance tasks
+
+Example:
+```bash
+feat(auth): add JWT authentication
+fix(db): resolve connection timeout issue
+docs(api): update endpoint documentation
+```
 
 ## 📝 License
 
