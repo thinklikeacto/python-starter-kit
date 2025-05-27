@@ -1,122 +1,155 @@
-# 🧱 Python Microservice Starter Kit
+# 🚀 Python Microservice Starter Kit
 
-A modular, scalable, and production-ready boilerplate to kickstart any Python-based microservice.
+A production-ready Python microservice boilerplate with clean architecture, multiple database support, and best practices built-in.
 
-This starter kit follows clean architecture principles with clear separation of concerns across layers like API, services, repositories, and models. It is designed to work with multiple databases (SQL or NoSQL), supports versioned APIs, and is easy to extend for any business use case. Ideal for teams looking to build r
+## ✨ Features
 
-## 📁 Folder Structure & Purpose
+- **Clean Architecture**: Clear separation of concerns with layered architecture
+- **Multiple Database Support**: Ready-to-use configurations for PostgreSQL, MongoDB, and Redis
+- **API Development**: FastAPI with automatic OpenAPI documentation
+- **Authentication**: JWT-based authentication system
+- **Database Migrations**: Alembic for schema migrations
+- **Docker Support**: Containerization with Docker and Docker Compose
+- **Type Safety**: Type hints and Pydantic models throughout the codebase
+- **Error Handling**: Centralized error handling and custom exceptions
+- **Logging**: Structured logging configuration
+- **Testing**: Pytest setup with fixtures and examples
+- **API Versioning**: Built-in support for API versioning
+- **CORS**: Configured Cross-Origin Resource Sharing
+- **Environment Variables**: Environment-based configuration using python-dotenv
 
-### `app/api/`
-- Organizes API interfaces
-- Uses routers (e.g., FastAPI `APIRouter`)
-- Handles versioning for long-term maintainability
-- `schemas/` includes request and response models with validation
-
-### `app/core/`
-- Central place for all configurations, logging, and global exceptions
-- Reads from `.env` or config file using Pydantic or Dynaconf
-
-### `app/services/`
-- Contains business logic that interacts with repositories
-- Keeps logic separate from database implementation
-
-### `app/models/`
-- ORM models (SQLAlchemy, Tortoise ORM, Pydantic) representing DB tables or domain entities
-
-### `app/repository/`
-- Implements all interactions with databases
-- One repository per model (CRUD + custom queries)
-
-### `app/utils/`
-- Reusable utility code (token generation, encryption, email sending, etc.)
-
-### `db/`
-- Manages schema migrations (e.g., Alembic)
-- Can include initial seed data or dummy datasets
-
-### `tests/`
-- Includes `unit/` tests (mocked DB or services) and `integration/` tests (actual app context)
-- Uses Pytest with fixtures for setup
-
-### `scripts/`
-- Shell/Python scripts for automation
-- Used for setup, migration, formatting, linting, and cleanup tasks
-
-## 📁 Project Structure
-
-```text
-
-project/
-│
-├── app/                      # Main application logic
-│   ├── api/                  # API layer (REST or gRPC)
-│   │   ├── v1/               # Versioned APIs
-│   │   │   ├── routes/       # FastAPI/Flask routers
-│   │   │   └── schemas/      # Request/Response schemas (Pydantic)
-│   │   └── dependencies.py   # Dependency injection for endpoints
-│   │
-│   ├── core/                 # Core logic: Configs, Logging, Error Handling
-│   │   ├── config.py         # Environment and settings loader
-│   │   ├── logger.py         # Logging setup
-│   │   └── errors.py         # Custom exceptions
-│   │
-│   ├── services/             # Business logic layer
-│   │   └── user_service.py   # Example business service
-│   │
-│   ├── models/               # ORM models or domain models
-│   │   └── user.py           # Example DB model
-│   │
-│   ├── repository/           # DB operations layer (SQLAlchemy, Motor, etc.)
-│   │   └── user_repo.py      # DB logic for user
-│   │
-│   └── utils/                # Shared utility functions
-│       └── token_utils.py    # Example utility
-│
-├── db/                       # Database migrations and seeds
-│   ├── migrations/           # Alembic or Flyway migration files
-│   └── seed.py               # Optional seed data
-│
-├── tests/                    # Unit and integration tests
-│   ├── unit/                 # Isolated unit tests
-│   └── integration/          # Tests with DB/app context
-│
-├── scripts/                  # Dev & CI scripts (e.g., setup.sh, db_init.sh)
-│
-├── .env                      # Environment variables
-├── Dockerfile                # Container build file
-├── docker-compose.yml        # Service orchestration
-├── requirements.txt          # Python dependencies
-├── pyproject.toml            # Optional: modern packaging
-└── main.py                   # Application entry point (e.g., FastAPI app)
-
+## 🏗️ Project Structure
 
 ```
+project/
+├── app/                      # Main application logic
+│   ├── api/                  # API layer (REST or gRPC)
+│   │   ├── v1/              # API version 1
+│   │   │   ├── routes/      # API endpoints
+│   │   │   └── schemas/     # Request/Response models
+│   │   └── dependencies.py  # FastAPI dependencies
+│   ├── core/                # Core modules
+│   │   ├── config.py       # Settings and configuration
+│   │   ├── logger.py       # Logging setup
+│   │   └── errors.py       # Custom exceptions
+│   ├── models/             # Database models
+│   ├── repository/         # Database operations
+│   ├── services/          # Business logic
+│   └── utils/             # Utility functions
+├── db/                    # Database migrations
+├── tests/                # Test suite
+├── .env                  # Environment variables
+├── docker-compose.yml    # Docker services
+├── Dockerfile           # Container definition
+└── requirements.txt     # Python dependencies
+```
 
----
+## 🚀 Getting Started
 
-## 🛠️ Contributing
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd python-starter-kit
+   ```
 
-We welcome contributions to improve this starter kit.  
-Feel free to open issues, suggest improvements, or submit pull requests.
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-To get started:
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-1. Fork the repo
-2. Create your feature branch (`git checkout -b feature/YourFeature`)
-3. Commit your changes (`git commit -m 'Add YourFeature'`)
-4. Push to the branch (`git push origin feature/YourFeature`)
-5. Create a new Pull Request
+4. Copy the example environment file:
+   ```bash
+   cp .env.example .env
+   ```
 
----
+5. Start the services using Docker Compose:
+   ```bash
+   docker-compose up -d
+   ```
 
-## 📄 License
+6. Run database migrations:
+   ```bash
+   alembic upgrade head
+   ```
 
-This project is licensed under the [MIT License](LICENSE).  
-You are free to use, modify, and distribute it with proper attribution.
+7. Start the application:
+   ```bash
+   uvicorn main:app --reload
+   ```
 
----
+The API will be available at http://localhost:8000
+API documentation will be at http://localhost:8000/docs
 
-## 📢 Disclaimer
+## 🔧 Configuration
 
-This starter kit is provided "as is" without any warranties.  
-Use it at your own discretion and feel free to adapt it to your project's needs.
+Configuration is handled through environment variables. See `.env.example` for available options.
+
+Key configurations:
+- `APP_NAME`: Application name
+- `ENV`: Environment (development/production)
+- `DATABASE_URL`: PostgreSQL connection string
+- `MONGODB_URL`: MongoDB connection string
+- `REDIS_HOST`: Redis host
+- `SECRET_KEY`: Secret key for JWT tokens
+
+## 📚 API Documentation
+
+The API documentation is automatically generated and can be accessed at:
+- Swagger UI: `/docs`
+- ReDoc: `/redoc`
+
+## 🧪 Testing
+
+Run tests using pytest:
+```bash
+pytest
+```
+
+## 🐳 Docker
+
+Build and run the application using Docker:
+
+```bash
+# Build the image
+docker build -t python-starter-kit .
+
+# Run with Docker Compose (recommended)
+docker-compose up -d
+```
+
+## 📦 Dependencies
+
+Key dependencies used:
+- FastAPI: Modern web framework
+- SQLAlchemy: SQL toolkit and ORM
+- Alembic: Database migration tool
+- Pydantic: Data validation
+- PyJWT: JWT token handling
+- Motor: Async MongoDB driver
+- Redis: Redis client
+- Pytest: Testing framework
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- FastAPI
+- SQLAlchemy
+- Alembic
+- And all other open source libraries used in this project
