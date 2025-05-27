@@ -90,7 +90,7 @@ project/
 └── main.py                   # Application entry point (e.g., FastAPI app)
 
 
-```text
+```
 
 ---
 
