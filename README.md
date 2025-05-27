@@ -42,8 +42,6 @@ This starter kit follows clean architecture principles with clear separation of 
 - Shell/Python scripts for automation
 - Used for setup, migration, formatting, linting, and cleanup tasks
 
-
-
 project/
 │
 ├── app/                      # Main application logic
@@ -86,6 +84,8 @@ project/
 ├── requirements.txt          # Python dependencies
 ├── pyproject.toml            # Optional: modern packaging
 └── main.py                   # Application entry point (e.g., FastAPI app)
+
+
 
 
 ---
