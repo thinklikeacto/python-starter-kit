@@ -5,11 +5,17 @@ A production-ready Python microservice boilerplate with clean architecture, mult
 ## ✨ Features
 
 - **Clean Architecture**: Clear separation of concerns with layered architecture
+- **Microservices Architecture**: Properly isolated services with their own configurations
 - **Multiple Database Support**: Ready-to-use configurations for PostgreSQL, MongoDB, and Redis
 - **API Development**: FastAPI with automatic OpenAPI documentation
 - **Authentication**: JWT-based authentication system
 - **Database Migrations**: Alembic for schema migrations
-- **Docker Support**: Containerization with Docker and Docker Compose
+- **Optimized Docker Setup**: 
+  - Multi-stage builds for smaller images
+  - Alpine-based images for minimal footprint
+  - Separate production and development dependencies
+  - Health checks for all services
+  - Proper service isolation and networking
 - **Type Safety**: Type hints and Pydantic models throughout the codebase
 - **Error Handling**: Centralized error handling and custom exceptions
 - **Logging**: Structured logging configuration
@@ -37,12 +43,25 @@ project/
 │   ├── repository/         # Database operations
 │   ├── services/          # Business logic
 │   └── utils/             # Utility functions
+├── services/              # Microservices
+│   ├── postgres/         # PostgreSQL service
+│   │   ├── config/      # PostgreSQL configuration
+│   │   ├── init/        # Initialization scripts
+│   │   └── docker/      # Service-specific Dockerfile
+│   ├── mongodb/         # MongoDB service
+│   │   ├── config/      # MongoDB configuration
+│   │   ├── init/        # Initialization scripts
+│   │   └── docker/      # Service-specific Dockerfile
+│   └── redis/           # Redis service
+│       ├── config/      # Redis configuration
+│       └── docker/      # Service-specific Dockerfile
 ├── db/                    # Database migrations
 ├── tests/                # Test suite
 ├── .env                  # Environment variables
 ├── docker-compose.yml    # Docker services
 ├── Dockerfile           # Container definition
-└── requirements.txt     # Python dependencies
+├── requirements.txt     # Development dependencies
+└── requirements.prod.txt # Production dependencies
 ```
 
 ## 📋 Prerequisites
@@ -50,9 +69,11 @@ project/
 Before you begin, ensure you have the following installed:
 
 1. Python 3.11 or higher
-2. PostgreSQL 14 or higher
-3. MongoDB 6.0 or higher
-4. Redis (optional)
+2. Docker and Docker Compose
+3. Git
+4. PostgreSQL 14 or higher
+5. MongoDB 6.0 or higher
+6. Redis (optional)
 
 ### Installing MongoDB
 
@@ -93,36 +114,9 @@ sudo systemctl enable mongod
    cd python-starter-kit
    ```
 
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Copy the example environment file:
-   ```bash
-   cp .env.example .env
-   ```
-
-5. Start the services using Docker Compose (optional):
+2. Start the services using Docker Compose:
    ```bash
    docker-compose up -d
-   ```
-   Or ensure your local PostgreSQL and MongoDB services are running.
-
-6. Run database migrations:
-   ```bash
-   alembic upgrade head
-   ```
-
-7. Start the application:
-   ```bash
-   uvicorn main:app --reload
    ```
 
 The API will be available at http://localhost:8000
@@ -130,15 +124,23 @@ API documentation will be at http://localhost:8000/docs
 
 ## 🔧 Configuration
 
-Configuration is handled through environment variables. See `.env.example` for available options.
+Configuration is handled through environment variables and service-specific configuration files:
 
 Key configurations:
 - `APP_NAME`: Application name
 - `ENV`: Environment (development/production)
 - `DATABASE_URL`: PostgreSQL connection string
-- `MONGODB_URL`: MongoDB connection string (default: mongodb://localhost:27017/)
-- `REDIS_HOST`: Redis host (optional)
-- `SECRET_KEY`: Secret key for JWT tokens
+- `MONGODB_URL`: MongoDB connection string
+- `REDIS_URL`: Redis connection string
+
+Service-specific configurations:
+- PostgreSQL: `services/postgres/config/`
+  - `postgresql.conf`: Database configuration
+  - `pg_hba.conf`: Access control
+- MongoDB: `services/mongodb/config/`
+  - `mongod.conf`: Database configuration
+- Redis: `services/redis/config/`
+  - `redis.conf`: Cache configuration
 
 ## 📚 API Documentation
 
@@ -155,14 +157,29 @@ pytest
 
 ## 🐳 Docker
 
+The project uses an optimized Docker setup with:
+
+1. Multi-stage builds for smaller images
+2. Alpine-based images for minimal footprint
+3. Separate production and development dependencies
+4. Health checks for all services
+5. Proper service isolation and networking
+6. Volume management for data persistence
+
 Build and run the application using Docker:
 
 ```bash
-# Build the image
-docker build -t python-starter-kit .
-
-# Run with Docker Compose (recommended)
+# Build and start all services
 docker-compose up -d
+
+# Build specific service
+docker-compose build app
+
+# View logs
+docker-compose logs -f app
+
+# Stop all services
+docker-compose down
 ```
 
 ## 🔍 Troubleshooting
@@ -193,6 +210,7 @@ Key dependencies used:
 - Pydantic: Data validation
 - PyJWT: JWT token handling
 - Motor: Async MongoDB driver
+- Psycopg2: PostgreSQL driver
 - Redis: Redis client
 - Pytest: Testing framework
 
