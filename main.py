@@ -30,4 +30,14 @@ app.include_router(api_router, prefix=settings.API_V1_PREFIX)
 
 @app.get("/")
 async def root():
-    return {"message": "Welcome to Python Starter Kit API"} 
+    return {"message": "Welcome to Python Starter Kit API"}
+
+
+@app.get("/health")
+async def health_check():
+    """Health check endpoint for container orchestration"""
+    return {
+        "status": "healthy",
+        "service": settings.APP_NAME,
+        "environment": settings.ENV
+    } 
