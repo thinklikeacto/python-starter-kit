@@ -216,6 +216,8 @@ Key dependencies used:
 
 ## 🤝 Contributing
 
+We believe great software is built together! Whether you're fixing a bug, adding a feature, or improving documentation, your contributions are warmly welcomed and appreciated. Even if you're new to open source, we encourage you to jump in - every contribution counts, and we're here to help you succeed! Check out our issues labeled "good first issue" to get started.
+
 ### Git Workflow
 
 We follow the GitFlow branching model for development:
