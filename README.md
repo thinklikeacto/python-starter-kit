@@ -29,39 +29,45 @@ A production-ready Python microservice boilerplate with clean architecture, mult
 
 ```
 project/
-├── app/                      # Main application logic
-│   ├── api/                  # API layer (REST or gRPC)
-│   │   ├── v1/              # API version 1
-│   │   │   ├── routes/      # API endpoints
-│   │   │   └── schemas/     # Request/Response models
-│   │   └── dependencies.py  # FastAPI dependencies
-│   ├── core/                # Core modules
-│   │   ├── config.py       # Settings and configuration
-│   │   ├── logger.py       # Logging setup
-│   │   └── errors.py       # Custom exceptions
-│   ├── models/             # Database models
-│   ├── repository/         # Database operations
-│   ├── services/          # Business logic
-│   └── utils/             # Utility functions
-├── services/              # Microservices
-│   ├── postgres/         # PostgreSQL service
-│   │   ├── config/      # PostgreSQL configuration
-│   │   ├── init/        # Initialization scripts
-│   │   └── docker/      # Service-specific Dockerfile
-│   ├── mongodb/         # MongoDB service
-│   │   ├── config/      # MongoDB configuration
-│   │   ├── init/        # Initialization scripts
-│   │   └── docker/      # Service-specific Dockerfile
-│   └── redis/           # Redis service
-│       ├── config/      # Redis configuration
-│       └── docker/      # Service-specific Dockerfile
-├── db/                    # Database migrations
-├── tests/                # Test suite
-├── .env                  # Environment variables
-├── docker-compose.yml    # Docker services
-├── Dockerfile           # Container definition
-├── requirements.txt     # Development dependencies
-└── requirements.prod.txt # Production dependencies
+├── app/
+│   ├── __init__.py
+│   ├── main.py                # Application entry point
+│   ├── api/
+│   │   ├── v1/
+│   │   │   ├── routes/
+│   │   │   └── schemas/
+│   │   └── dependencies.py
+│   ├── core/
+│   │   ├── config.py
+│   │   ├── logger.py
+│   │   └── errors.py
+│   ├── models/
+│   ├── repository/
+│   ├── services/
+│   └── utils/
+├── services/
+│   ├── postgres/
+│   │   ├── config/
+│   │   ├── init/
+│   │   └── docker/
+│   ├── mongodb/
+│   │   ├── config/
+│   │   ├── init/
+│   │   └── docker/
+│   └── redis/
+│       ├── config/
+│       └── docker/
+├── migrations/                # Alembic migrations (if using Alembic)
+├── tests/
+├── .env
+├── alembic.ini                # Alembic config (if using Alembic)
+├── docker-compose.yml
+├── Dockerfile
+├── requirements.txt
+├── requirements.prod.txt
+├── README.md
+├── LICENSE
+└── pytest.ini
 ```
 
 ## 📋 Prerequisites
